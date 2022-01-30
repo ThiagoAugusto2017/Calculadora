@@ -129,7 +129,7 @@ color: #fff;
     font-weight: 300;
 }
 
-#ac-btn:hove ,#division-btn:hover , #multiplication-btn:hover ,  #minus-btn:hover , #plus-btn:hover ,#equals-btn:hover  {
+#ac-btn:hover ,#division-btn:hover , #multiplication-btn:hover ,  #minus-btn:hover , #plus-btn:hover ,#equals-btn:hover  {
     background-color: orange;
 }
 
