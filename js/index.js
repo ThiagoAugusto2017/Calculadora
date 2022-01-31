@@ -25,6 +25,32 @@ Checkdados(input,upperValeu,reg){
     }
 
 };
+
+//soma 
+soma1(n1,n2){
+    return parseFloat(n1) + parseFloat(n2)
+}
+//subtracao 
+subtracao(n1,n2){
+    return parseFloat(n1) - parseFloat(n2)
+}
+//multiplicação 
+multiplicacao(n1,n2){
+    return parseFloat(n1) * parseFloat(n2)
+}
+//divisão 
+divisao(n1,n2){
+    return parseFloat(n1) / parseFloat(n2)
+}
+
+refreshvalues(total){
+
+this.upperValue.textContent = total;
+this.resultVelue.textContent = total;
+}
+
+
+
 // resolvendo as operações 
 fatoracao() {
 // fazer um array para usar na fatororação
@@ -36,15 +62,58 @@ let result= 0;
 for(let i = 0; i<=upperdadosArray.length; i++){
 
 let atualItem = upperdadosArray[i];
-    
-if(atualItem == "+"){
+ 
+// este operetion ira sera o i na operação para iniciar o for novamente apos a operação 
+let operation = 0;
+if(atualItem == "x"){
  // parseFloat transforma string em numeros
-    result = parseFloat(upperdadosArray[i - 1]) + parseFloat(upperdadosArray[i + 1]);
+    result = calc.multiplicacao(upperdadosArray[i - 1]), (upperdadosArray[i + 1]);
+   operation = 1;
+}else if(atualItem == "/"){
+
+    result = calc.divisao(upperdadosArray[i - 1]), (upperdadosArray[i + 1]);
+    operation = 1;
+    // checa se na fatoracao (calculadora tem alguma / ou * se tiver ele nao soma e nem -;)
+   }else if(!upperdadosArray.includes("x")&& !upperdadosArray.includes("/")){
+
+    if(atualItem == "+"){
+        // parseFloat transforma string em numeros
+           result = calc.soma1(upperdadosArray[i - 1]), (upperdadosArray[i + 1]);
+           operation = 1;
+       }
+    else if(atualItem == "-"){
+        // parseFloat transforma string em numeros
+           result = calc.subtracao(upperdadosArray[i - 1]), (upperdadosArray[i + 1]);
+           operation = 1;
+       }
+
    }
 
+   // atualiza valores do array para proxima iteração 
+
+   if(operation){
+
+    // transforma o indice anterior em resultado na calculadora
+       upperdadosArray[i-1] = result;
+   // remove os itens ja utilizados para a operação um
+   
+   upperdadosArray.splice(i,2);
+
+   //atualiza o valor do indice 
+    i=0;
+
+   }
+
+
+
       }
-this.upperValue.textContent = result;
-this.resultVelue.textContent = result;
+      if(result){
+          calc.reset = 1;
+
+
+      }
+
+calc.refreshvalues(result);
 
 }
 
@@ -57,6 +126,13 @@ btnpress(){
 
    //verificar se o codigo e so numeros 
    var reg = new RegExp("^\\d+$");
+
+   if(calc.reset && reg.test(input)){
+       upperValue = "0";
+   }
+
+   // limpar reset
+   calc.reset = 0;
   
 
    if(input == "AC"){
